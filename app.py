@@ -25,8 +25,7 @@ max_budget = st.slider(
     "💰 Wat is je maximale budget (€)?",
     min_value=0,
     max_value=int(df["Prijs"].max()),
-    value=50
-)
+    value=40)
 
 # Aantal musea
 aantal_musea = st.selectbox(
@@ -39,8 +38,7 @@ min_facilities = st.slider(
     "♿ Minimale faciliteiten-score",
     min_value=float(df["FACILITIES RATING"].min()),
     max_value=float(df["FACILITIES RATING"].max()),
-    value=float(df["FACILITIES RATING"].mean())
-)
+    value=float(df["FACILITIES RATING"].mean()))
 
 # =====================
 # Thema selectie (checkboxes)
