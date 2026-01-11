@@ -25,7 +25,7 @@ max_budget = st.slider(
     "💰 Wat is je maximale budget (€)?",
     min_value=0,
     max_value=40,  # aangepast van max(df["Prijs"].max()) naar 40
-    value=20
+    value=40
 )
 
 # Aantal musea
