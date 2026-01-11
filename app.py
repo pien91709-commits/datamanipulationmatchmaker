@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import openpyxl
 
 bestandspad = "Kopie van data manipulation .xlsx"
 df = pd.read_excel(bestandspad, sheet_name="Matchmaker")
