@@ -25,13 +25,13 @@ max_budget = st.slider(
     "💰 Wat is je maximale budget (€)?",
     min_value=0,
     max_value=int(df["Prijs"].max()),
-    value=20
+    value=50
 )
 
 # Aantal musea
 aantal_musea = st.selectbox(
     "🏛️ Hoeveel musea wil je combineren?",
-    [1, 2, 3]
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 )
 
 # Facilities voorkeur
