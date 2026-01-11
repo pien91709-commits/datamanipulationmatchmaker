@@ -7,7 +7,8 @@ import openpyxl
 # =====================
 bestandspad = "Kopie van data manipulation .xlsx"
 df = pd.read_excel(bestandspad, sheet_name="Matchmaker")
-
+df["THEME RATING"] = pd.to_numeric(df["THEME RATING"], errors="coerce")
+df["FACILITIES RATING"] = pd.to_numeric(df["FACILITIES RATING"], errors="coerce")
 st.title("🎯 Museum Matchmaker")
 
 # =====================
