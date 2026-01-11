@@ -9,6 +9,7 @@ bestandspad = "Kopie van data manipulation .xlsx"
 df = pd.read_excel(bestandspad, sheet_name="Matchmaker")
 df["THEME RATING"] = pd.to_numeric(df["THEME RATING"], errors="coerce")
 df["FACILITIES RATING"] = pd.to_numeric(df["FACILITIES RATING"], errors="coerce")
+
 st.title("🎯 Museum Matchmaker")
 
 # =====================
@@ -33,7 +34,7 @@ aantal_musea = st.selectbox(
     [1, 2, 3]
 )
 
-# Theme voorkeur
+# Theme voorkeur (score)
 min_theme = st.slider(
     "🎨 Minimale thema-score",
     min_value=float(df["THEME RATING"].min()),
@@ -50,6 +51,22 @@ min_facilities = st.slider(
 )
 
 # =====================
+# Thema selectie (checkboxes)
+# =====================
+themas = [
+    "Geschiedenis en archeologie",
+    "Wetenschap en technologie",
+    "Mode",
+    "Literatuur",
+    "Architectuur",
+    "Beeldende kunst",
+    "Toegepaste kunst en design"
+]
+
+st.subheader("✨ Selecteer je favoriete thema's")
+gekozen_themas = [thema for thema in themas if st.checkbox(thema)]
+
+# =====================
 # Filteren
 # =====================
 filtered_df = df[
@@ -57,7 +74,14 @@ filtered_df = df[
     (df["Prijs"] <= max_budget) &
     (df["THEME RATING"] >= min_theme) &
     (df["FACILITIES RATING"] >= min_facilities)
-].dropna(subset=["WEIGHTED RATING"])
+]
+
+# Filter op gekozen thema's als er minimaal één is geselecteerd
+if gekozen_themas:
+    filtered_df = filtered_df[filtered_df["THEMA"].isin(gekozen_themas)]
+
+# Drop rows zonder gewicht
+filtered_df = filtered_df.dropna(subset=["WEIGHTED RATING"])
 
 # =====================
 # Match maken
