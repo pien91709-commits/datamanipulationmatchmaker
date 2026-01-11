@@ -33,13 +33,8 @@ aantal_musea = st.selectbox(
     "🏛️ Hoeveel musea wil je combineren?",
     list(range(1, 16))  # 1 t/m 15 musea
 )
-
-# Facilities voorkeur
-min_facilities = st.slider(
-    "♿ Minimale faciliteiten-score",
-    min_value=float(df["FACILITIES RATING"].min()),
-    max_value=float(df["FACILITIES RATING"].max()),
-    value=float(df["FACILITIES RATING"].mean())
+st.write("Max budget:", max_budget)
+st.write("Aantal musea:", aantal_musea)
 )
 
 # =====================
