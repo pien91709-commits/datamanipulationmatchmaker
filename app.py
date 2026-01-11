@@ -34,14 +34,6 @@ aantal_musea = st.selectbox(
     [1, 2, 3]
 )
 
-# Theme voorkeur (score)
-min_theme = st.slider(
-    "🎨 Minimale thema-score",
-    min_value=float(df["THEME RATING"].min()),
-    max_value=float(df["THEME RATING"].max()),
-    value=float(df["THEME RATING"].mean())
-)
-
 # Facilities voorkeur
 min_facilities = st.slider(
     "♿ Minimale faciliteiten-score",
@@ -72,7 +64,6 @@ gekozen_themas = [thema for thema in themas if st.checkbox(thema)]
 filtered_df = df[
     (df["Provincie"] == gekozen_provincie) &
     (df["Prijs"] <= max_budget) &
-    (df["THEME RATING"] >= min_theme) &
     (df["FACILITIES RATING"] >= min_facilities)
 ]
 
@@ -111,3 +102,4 @@ if st.button("✨ Maak match"):
         )
 
         st.success(f"💰 Totale prijs: €{totaalprijs:.2f}")
+
