@@ -35,7 +35,6 @@ aantal_musea = st.selectbox(
 )
 st.write("Max budget:", max_budget)
 st.write("Aantal musea:", aantal_musea)
-)
 
 # =====================
 # Thema selectie (checkboxes in 2 kolommen)
