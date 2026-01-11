@@ -67,9 +67,16 @@ filtered_df = df[
     (df["FACILITIES RATING"] >= min_facilities)
 ]
 
-# Filter op gekozen thema's als er minimaal één is geselecteerd
+# Filter op thema's met score 1
 if gekozen_themas:
-    filtered_df = filtered_df[filtered_df["THEMA"].isin(gekozen_themas)]
+    # Maak een boolean mask voor elk gekozen thema en combineer met OR
+    mask = pd.Series([False] * len(filtered_df))
+    for thema in gekozen_themas:
+        if thema in filtered_df.columns:
+            mask = mask | (filtered_df[thema] == 1)
+        else:
+            st.warning(f"Let op: kolom voor thema '{thema}' bestaat niet in de data.")
+    filtered_df = filtered_df[mask]
 
 # Drop rows zonder gewicht
 filtered_df = filtered_df.dropna(subset=["WEIGHTED RATING"])
@@ -102,4 +109,3 @@ if st.button("✨ Maak match"):
         )
 
         st.success(f"💰 Totale prijs: €{totaalprijs:.2f}")
-
