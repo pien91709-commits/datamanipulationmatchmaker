@@ -67,8 +67,7 @@ for i, thema in enumerate(themas):
 # =====================
 filtered_df = df[
     (df["Provincie"] == gekozen_provincie) &
-    (df["Prijs"] <= max_budget) &
-    (df["FACILITIES RATING"] >= min_facilities)
+    (df["Prijs"] <= max_budget)
 ]
 
 # Filter op thema's met score 1 (alleen als er minimaal één thema is gekozen)
@@ -106,7 +105,6 @@ if st.button("✨ Maak match"):
                 "Provincie",
                 "Prijs",
                 "THEME RATING",
-                "FACILITIES RATING",
                 "WEIGHTED RATING"
             ]]
         )
