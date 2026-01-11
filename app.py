@@ -24,13 +24,14 @@ gekozen_provincie = st.selectbox("📍 Kies een provincie", provincies)
 max_budget = st.slider(
     "💰 Wat is je maximale budget (€)?",
     min_value=0,
-    max_value=int(df["Prijs"].max()),
-    value=40)
+    max_value=40,  # aangepast van max(df["Prijs"].max()) naar 40
+    value=20
+)
 
 # Aantal musea
 aantal_musea = st.selectbox(
     "🏛️ Hoeveel musea wil je combineren?",
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    list(range(1, 16))  # 1 t/m 15 musea
 )
 
 # Facilities voorkeur
@@ -38,10 +39,11 @@ min_facilities = st.slider(
     "♿ Minimale faciliteiten-score",
     min_value=float(df["FACILITIES RATING"].min()),
     max_value=float(df["FACILITIES RATING"].max()),
-    value=float(df["FACILITIES RATING"].mean()))
+    value=float(df["FACILITIES RATING"].mean())
+)
 
 # =====================
-# Thema selectie (checkboxes)
+# Thema selectie (checkboxes in 2 kolommen)
 # =====================
 themas = [
     "Geschiedenis en archeologie",
@@ -54,7 +56,17 @@ themas = [
 ]
 
 st.subheader("✨ Selecteer je favoriete thema's")
-gekozen_themas = [thema for thema in themas if st.checkbox(thema)]
+
+# 2 kolommen
+col1, col2 = st.columns(2)
+gekozen_themas = []
+for i, thema in enumerate(themas):
+    if i % 2 == 0:
+        if col1.checkbox(thema):
+            gekozen_themas.append(thema)
+    else:
+        if col2.checkbox(thema):
+            gekozen_themas.append(thema)
 
 # =====================
 # Filteren
@@ -65,9 +77,8 @@ filtered_df = df[
     (df["FACILITIES RATING"] >= min_facilities)
 ]
 
-# Filter op thema's met score 1
+# Filter op thema's met score 1 (alleen als er minimaal één thema is gekozen)
 if gekozen_themas:
-    # Maak een boolean mask voor elk gekozen thema en combineer met OR
     mask = pd.Series([False] * len(filtered_df))
     for thema in gekozen_themas:
         if thema in filtered_df.columns:
@@ -107,3 +118,4 @@ if st.button("✨ Maak match"):
         )
 
         st.success(f"💰 Totale prijs: €{totaalprijs:.2f}")
+
