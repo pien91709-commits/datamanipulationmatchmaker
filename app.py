@@ -100,11 +100,11 @@ if st.button("Maak match"):
         )
 
         st.success(f"Totale prijs: €{totaalprijs:.2f}")
-            "Musea - Nederlandse benaming (Title)",
-                "Provincie",
-                "Prijs",
-                "THEME RATING",
-                "WEIGHTED RATING"
+        "Musea - Nederlandse benaming (Title)",
+        "Provincie",
+        "Prijs",
+        "THEME RATING",
+        "WEIGHTED RATING"
             ]]
         )
 
