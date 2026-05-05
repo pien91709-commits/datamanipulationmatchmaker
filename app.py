@@ -1,44 +1,46 @@
 import streamlit as st
 import pandas as pd
-import openpyxl
 
-# =====================
-# Data laden
-# =====================
-bestandspad = "Kopie van data manipulation .xlsx"
-df = pd.read_excel(bestandspad, sheet_name="Matchmaker")
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #d8f3dc;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+bestandspad = "website.xlsx"
+
+df1 = pd.read_excel(bestandspad, sheet_name="Blad1")
+df2 = pd.read_excel(bestandspad, sheet_name="Blad2")
+
+df = pd.concat([df1, df2], ignore_index=True)
+
 df["THEME RATING"] = pd.to_numeric(df["THEME RATING"], errors="coerce")
 df["FACILITIES RATING"] = pd.to_numeric(df["FACILITIES RATING"], errors="coerce")
+df["WEIGHTED RATING"] = pd.to_numeric(df["WEIGHTED RATING"], errors="coerce")
 
-st.title("🎯 Museum Matchmaker")
+st.title("Museum Matchmaker")
 
-# =====================
-# Interactie
-# =====================
-
-# Provincie
 provincies = sorted(df["Provincie"].dropna().unique())
-gekozen_provincie = st.selectbox("📍 Kies een provincie", provincies)
+gekozen_provincie = st.selectbox("Kies een provincie", provincies)
 
-# Budget
 max_budget = st.slider(
-    "💰 Wat is je maximale budget (€)?",
+    "Wat is je maximale budget (€)?",
     min_value=0,
-    max_value=40,  # aangepast van max(df["Prijs"].max()) naar 40
+    max_value=40,
     value=40
 )
 
 # Aantal musea
 aantal_musea = st.selectbox(
-    "🏛️ Hoeveel musea wil je combineren?",
-    list(range(1, 16))  # 1 t/m 15 musea
+    "Hoeveel musea wil je combineren?",
+    list(range(1, 16))
 )
-st.write("Max budget:", max_budget)
-st.write("Aantal musea:", aantal_musea)
 
-# =====================
-# Thema selectie (checkboxes in 2 kolommen)
-# =====================
 themas = [
     "Geschiedenis en archeologie",
     "Wetenschap en technologie",
@@ -49,11 +51,11 @@ themas = [
     "Toegepaste kunst en design"
 ]
 
-st.subheader("✨ Selecteer je favoriete thema's")
+st.subheader("Selecteer je favoriete thema's")
 
-# 2 kolommen
 col1, col2 = st.columns(2)
 gekozen_themas = []
+
 for i, thema in enumerate(themas):
     if i % 2 == 0:
         if col1.checkbox(thema):
@@ -62,31 +64,21 @@ for i, thema in enumerate(themas):
         if col2.checkbox(thema):
             gekozen_themas.append(thema)
 
-# =====================
-# Filteren
-# =====================
 filtered_df = df[
     (df["Provincie"] == gekozen_provincie) &
     (df["Prijs"] <= max_budget)
 ]
 
-# Filter op thema's met score 1 (alleen als er minimaal één thema is gekozen)
 if gekozen_themas:
     mask = pd.Series([False] * len(filtered_df))
     for thema in gekozen_themas:
         if thema in filtered_df.columns:
             mask = mask | (filtered_df[thema] == 1)
-        else:
-            st.warning(f"Let op: kolom voor thema '{thema}' bestaat niet in de data.")
     filtered_df = filtered_df[mask]
 
-# Drop rows zonder gewicht
 filtered_df = filtered_df.dropna(subset=["WEIGHTED RATING"])
 
-# =====================
-# Match maken
-# =====================
-if st.button("✨ Maak match"):
+if st.button("Maak match"):
     if len(filtered_df) < aantal_musea:
         st.warning("Niet genoeg musea binnen deze criteria.")
     else:
@@ -98,9 +90,17 @@ if st.button("✨ Maak match"):
 
         totaalprijs = match["Prijs"].sum()
 
-        st.subheader("🏆 Jouw match")
+        st.subheader("Jouw match")
         st.dataframe(
             match[[
+                "Musea - Nederlandse benaming (Title)",
+                "Provincie",
+                "Prijs",
+                "THEME RATING"
+            ]]
+        )
+
+        st.success(f"Totale prijs: €{totaalprijs:.2f}")
                 "Musea - Nederlandse benaming (Title)",
                 "Provincie",
                 "Prijs",
@@ -108,6 +108,4 @@ if st.button("✨ Maak match"):
                 "WEIGHTED RATING"
             ]]
         )
-
-        st.success(f"💰 Totale prijs: €{totaalprijs:.2f}")
 
