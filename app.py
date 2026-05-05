@@ -24,9 +24,9 @@ df["FACILITIES RATING"] = pd.to_numeric(df["FACILITIES RATING"], errors="coerce"
 df["WEIGHTED RATING"] = pd.to_numeric(df["WEIGHTED RATING"], errors="coerce")
 
 df["Naam"] = df["Musea - Nederlandse benaming (Title)"]
-df["Naam"] = df["Naam"].fillna(df["Musea - Franse benaming (Title)"])
+df["Naam"] = df["Naam"].fillna(df["Musea - Franse benaming (Alternative Title)"])
 df["Naam"] = df["Naam"].replace("", pd.NA)
-df["Naam"] = df["Naam"].fillna(df["Musea - Franse benaming (Title)"])
+df["Naam"] = df["Naam"].fillna(df["Musea - Franse benaming (Alternative Title)"])
 
 st.title("Museum Matchmaker")
 
