@@ -35,7 +35,7 @@ if fr_kolom not in df.columns:
 df["Naam"] = df[nl_kolom]
 df["Naam"] = df["Naam"].replace("", pd.NA)
 df["Naam"] = df["Naam"].fillna(df[fr_kolom])
-df["Naam"] = df["Naam"].fillna("Onbekend museum")
+
 
 st.title("Museum Matchmaker")
 
