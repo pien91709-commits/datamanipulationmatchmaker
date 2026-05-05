@@ -23,6 +23,11 @@ df["THEME RATING"] = pd.to_numeric(df["THEME RATING"], errors="coerce")
 df["FACILITIES RATING"] = pd.to_numeric(df["FACILITIES RATING"], errors="coerce")
 df["WEIGHTED RATING"] = pd.to_numeric(df["WEIGHTED RATING"], errors="coerce")
 
+df["Naam"] = df["Musea - Nederlandse benaming (Title)"]
+df["Naam"] = df["Naam"].fillna(df["Musea - Franse benaming (Title)"])
+df["Naam"] = df["Naam"].replace("", pd.NA)
+df["Naam"] = df["Naam"].fillna(df["Musea - Franse benaming (Title)"])
+
 st.title("Museum Matchmaker")
 
 provincies = sorted(df["Provincie"].dropna().unique())
@@ -92,7 +97,7 @@ if st.button("Maak match"):
         st.subheader("Jouw match")
         st.dataframe(
             match[[
-                "Musea - Nederlandse benaming (Title)",
+                "Naam",
                 "Provincie",
                 "Prijs",
                 "THEME RATING"
