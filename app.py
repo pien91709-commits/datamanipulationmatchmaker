@@ -35,7 +35,6 @@ max_budget = st.slider(
     value=40
 )
 
-# Aantal musea
 aantal_musea = st.selectbox(
     "Hoeveel musea wil je combineren?",
     list(range(1, 16))
@@ -101,7 +100,7 @@ if st.button("Maak match"):
         )
 
         st.success(f"Totale prijs: €{totaalprijs:.2f}")
-                "Musea - Nederlandse benaming (Title)",
+            "Musea - Nederlandse benaming (Title)",
                 "Provincie",
                 "Prijs",
                 "THEME RATING",
