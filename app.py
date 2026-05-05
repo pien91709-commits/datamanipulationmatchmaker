@@ -105,6 +105,6 @@ if st.button("Maak match"):
         "Prijs",
         "THEME RATING",
         "WEIGHTED RATING"
-            ]]
+        ]]
         )
 
