@@ -245,7 +245,8 @@ if st.button("Maak match"):
                     "Prijs",
                     "Overeenkomende thema's"
                 ]
-            ]
+             ],
+                    hide_index=True
         )
 
         st.success(
