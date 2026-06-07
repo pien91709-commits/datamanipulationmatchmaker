@@ -4,10 +4,95 @@ import pandas as pd
 st.markdown(
     """
     <style>
+
+    /* Algemene pagina */
     .stApp {
-        background-color: #d8f3dc;
+        background-color: white;
     }
+
+    /* Hoofdtitel */
+    h1 {
+        color: rgb(11, 194, 157);
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Subtitels */
+    h2, h3 {
+        color: rgb(11, 194, 157);
+        font-weight: 600;
+    }
+
+    /* Labels */
+    label {
+        font-weight: 600 !important;
+    }
+
+    /* Selectboxen */
+    div[data-baseweb="select"] > div {
+        background-color: white !important;
+        border: 2px solid rgb(11, 194, 157) !important;
+        border-radius: 10px !important;
+    }
+
+    /* Knoppen */
+    .stButton > button {
+        background-color: rgb(11, 194, 157);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.5rem;
+        font-weight: 600;
+        width: 100%;
+    }
+
+    .stButton > button:hover {
+        background-color: rgb(8, 170, 137);
+        color: white;
+    }
+
+    /* Tabel */
+    div[data-testid="stDataFrame"] {
+        background-color: white !important;
+        border: 2px solid rgb(11, 194, 157);
+        border-radius: 12px;
+        padding: 10px;
+    }
+
+    /* Success melding */
+    div[data-testid="stAlert"] {
+        background-color: rgba(237, 44, 108, 0.08);
+        border-left: 6px solid rgb(237, 44, 108);
+        border-radius: 10px;
+    }
+
+    /* Pagina breedte */
+    .block-container {
+        max-width: 1100px;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
     </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    """
+    <div style="
+        background-color: rgb(237, 44, 108);
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+    ">
+        Ontdek musea die passen bij jouw interesses, budget en favoriete thema's.
+    </div>
     """,
     unsafe_allow_html=True
 )
