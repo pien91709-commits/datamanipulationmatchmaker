@@ -9,7 +9,6 @@ st.markdown(
         background-color: white;
     }
 
-    /* Hoofdtitel */
     h1 {
         color: rgb(11, 194, 157);
         font-weight: 700;
@@ -17,25 +16,21 @@ st.markdown(
         margin-bottom: 20px;
     }
 
-    /* Subtitels */
     h2, h3 {
         color: rgb(11, 194, 157);
         font-weight: 600;
     }
 
-    /* Labels */
     label {
         font-weight: 600 !important;
     }
 
-    /* Selectboxen */
     div[data-baseweb="select"] > div {
         background-color: white !important;
         border: 2px solid rgb(11, 194, 157) !important;
         border-radius: 10px !important;
     }
 
-    /* Knoppen */
     .stButton > button {
         background-color: rgb(11, 194, 157);
         color: white;
@@ -53,7 +48,6 @@ st.markdown(
     div[data-testid="stSlider"] > div {
         color: rgb(0, 143, 211) !important;
   }
-    /* Tabel */
     div[data-testid="stDataFrame"] {
         background-color: white !important;
         border: 2px solid rgb(11, 194, 157);
@@ -61,14 +55,12 @@ st.markdown(
         padding: 10px;
     }
 
-    /* Success melding */
     div[data-testid="stAlert"] {
         background-color: rgba(237, 44, 108, 0.08);
         border-left: 6px solid rgb(237, 44, 108);
         border-radius: 10px;
     }
 
-    /* Pagina breedte */
     .block-container {
         max-width: 1100px;
         padding-top: 2rem;
