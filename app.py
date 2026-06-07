@@ -24,18 +24,19 @@ df["FACILITIES RATING"] = pd.to_numeric(df["FACILITIES RATING"], errors="coerce"
 df["WEIGHTED RATING"] = pd.to_numeric(df["WEIGHTED RATING"], errors="coerce")
 
 nl_kolom = "Musea - Nederlandse benaming (Title)"
-fr_kolom = "Musea - Franse benaming (Title)"
+fr_kolom = "Musea - Franse benaming (Alternative Title)"
 
+# Kolommen aanmaken als ze ontbreken
 if nl_kolom not in df.columns:
     df[nl_kolom] = pd.NA
 
 if fr_kolom not in df.columns:
     df[fr_kolom] = pd.NA
-
+    
 df["Naam"] = df[nl_kolom]
-df["Naam"] = df["Naam"].replace("", pd.NA)
+df["Naam"] = df["Naam"].replace(r'^\s*$', pd.NA, regex=True)
 df["Naam"] = df["Naam"].fillna(df[fr_kolom])
-
+df["Naam"] = df["Naam"].fillna("Onbekend museum")
 
 st.title("Museum Matchmaker")
 
@@ -80,28 +81,38 @@ for i, thema in enumerate(themas):
 filtered_df = df[
     (df["Provincie"] == gekozen_provincie) &
     (df["Prijs"] <= max_budget)
-]
+].copy()
 
 if gekozen_themas:
     geldige_themas = [t for t in gekozen_themas if t in filtered_df.columns]
 
     if geldige_themas:
-        # Filter: minstens 1 match
         filtered_df = filtered_df[
             filtered_df[geldige_themas].eq(1).any(axis=1)
-        ]
+        ].copy()
 
-        filtered_df["Aantal matches"] = filtered_df[geldige_themas].sum(axis=1)
+        filtered_df["Aantal matches"] = (
+            filtered_df[geldige_themas]
+            .fillna(0)
+            .sum(axis=1)
+        )
 
         def match_themas(row):
-            matches = [t for t in geldige_themas if row[t] == 1]
+            matches = [
+                thema
+                for thema in geldige_themas
+                if pd.notna(row[thema]) and row[thema] == 1
+            ]
             return ", ".join(matches)
 
-        filtered_df["Overeenkomende thema's"] = filtered_df.apply(match_themas, axis=1)
+        filtered_df["Overeenkomende thema's"] = (
+            filtered_df.apply(match_themas, axis=1)
+        )
 
     else:
         filtered_df["Aantal matches"] = 0
         filtered_df["Overeenkomende thema's"] = "Geen match"
+
 else:
     filtered_df["Aantal matches"] = 0
     filtered_df["Overeenkomende thema's"] = "Geen selectie"
@@ -114,21 +125,27 @@ if st.button("Maak match"):
     else:
         match = (
             filtered_df
-            .sort_values(["Aantal matches", "WEIGHTED RATING"], ascending=False)
+            .sort_values(
+                ["Aantal matches", "WEIGHTED RATING"],
+                ascending=False
+            )
             .head(aantal_musea)
         )
 
         totaalprijs = match["Prijs"].sum()
 
         st.subheader("Jouw match")
+
         st.dataframe(
-            match[[
-                "Naam",
-                "Provincie",
-                "Prijs",
-                "THEME RATING",
-                "Overeenkomende thema's"
-            ]]
+            match[
+                [
+                    "Naam",
+                    "Provincie",
+                    "Prijs",
+                    "THEME RATING",
+                    "Overeenkomende thema's"
+                ]
+            ]
         )
 
         st.success(f"Totale prijs: €{totaalprijs:.2f}")
