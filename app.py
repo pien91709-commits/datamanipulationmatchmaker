@@ -45,9 +45,7 @@ st.markdown(
         background-color: rgb(8, 170, 137);
         color: white;
     }
-    div[data-testid="stSlider"] > div {
-        color: rgb(0, 143, 211) !important;
-  }
+
     div[data-testid="stDataFrame"] {
         background-color: white !important;
         border: 2px solid rgb(11, 194, 157);
@@ -75,8 +73,8 @@ st.markdown(
 st.markdown(
     """
     <div style="
-        background-color: rgb(237, 44, 108);
-        color: white;
+        background-color: rgba(11, 194, 157, 0.12);
+        color: rgb(11, 194, 157);
         padding: 20px;
         border-radius: 15px;
         margin-bottom: 25px;
