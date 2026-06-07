@@ -22,6 +22,7 @@ df = pd.concat([df1, df2], ignore_index=True)
 df["THEME RATING"] = pd.to_numeric(df["THEME RATING"], errors="coerce")
 df["FACILITIES RATING"] = pd.to_numeric(df["FACILITIES RATING"], errors="coerce")
 df["WEIGHTED RATING"] = pd.to_numeric(df["WEIGHTED RATING"], errors="coerce")
+df["Prijs"] = pd.to_numeric(df["Prijs"], errors="coerce")
 
 nl_kolom = "Musea - Nederlandse benaming (Title)"
 fr_kolom = "Musea - Franse benaming (Alternative Title)"
@@ -31,7 +32,7 @@ if nl_kolom not in df.columns:
 
 if fr_kolom not in df.columns:
     df[fr_kolom] = pd.NA
-    
+
 df["Naam"] = df[nl_kolom]
 df["Naam"] = df["Naam"].replace(r'^\s*$', pd.NA, regex=True)
 df["Naam"] = df["Naam"].fillna(df[fr_kolom])
@@ -40,7 +41,11 @@ df["Naam"] = df["Naam"].fillna("Onbekend museum")
 st.title("Museum Matchmaker")
 
 provincies = sorted(df["Provincie"].dropna().unique())
-gekozen_provincie = st.selectbox("Kies een provincie", provincies)
+
+gekozen_provincie = st.selectbox(
+    "Kies een provincie",
+    provincies
+)
 
 max_budget = st.slider(
     "Wat is je maximale budget (€)?",
@@ -67,6 +72,7 @@ themas = [
 st.subheader("Selecteer je favoriete thema's")
 
 col1, col2 = st.columns(2)
+
 gekozen_themas = []
 
 for i, thema in enumerate(themas):
@@ -78,14 +84,18 @@ for i, thema in enumerate(themas):
             gekozen_themas.append(thema)
 
 filtered_df = df[
-    (df["Provincie"] == gekozen_provincie) &
-    (df["Prijs"] <= max_budget)
+    (df["Provincie"] == gekozen_provincie)
 ].copy()
 
 if gekozen_themas:
-    geldige_themas = [t for t in gekozen_themas if t in filtered_df.columns]
+
+    geldige_themas = [
+        thema for thema in gekozen_themas
+        if thema in filtered_df.columns
+    ]
 
     if geldige_themas:
+
         filtered_df = filtered_df[
             filtered_df[geldige_themas].eq(1).any(axis=1)
         ].copy()
@@ -96,11 +106,11 @@ if gekozen_themas:
             .sum(axis=1)
         )
 
-        def match_themas(row):
+        def match_themas(rij):
             matches = [
                 thema
                 for thema in geldige_themas
-                if pd.notna(row[thema]) and row[thema] == 1
+                if pd.notna(rij[thema]) and rij[thema] == 1
             ]
             return ", ".join(matches)
 
@@ -117,21 +127,42 @@ else:
     filtered_df["Overeenkomende thema's"] = "Geen selectie"
 
 filtered_df = filtered_df.dropna(subset=["WEIGHTED RATING"])
+filtered_df = filtered_df.dropna(subset=["Prijs"])
 
 if st.button("Maak match"):
-    if len(filtered_df) < aantal_musea:
-        st.warning("Niet genoeg musea binnen deze criteria.")
-    else:
-        match = (
-            filtered_df
-            .sort_values(
-                ["Aantal matches", "WEIGHTED RATING"],
-                ascending=False
-            )
-            .head(aantal_musea)
+
+    kandidaten = (
+        filtered_df
+        .sort_values(
+            ["Aantal matches", "WEIGHTED RATING"],
+            ascending=False
+        )
+    )
+
+    geselecteerd = []
+    totaalprijs = 0
+
+    for _, museum in kandidaten.iterrows():
+
+        prijs = museum["Prijs"]
+
+        if totaalprijs + prijs <= max_budget:
+            geselecteerd.append(museum)
+            totaalprijs += prijs
+
+        if len(geselecteerd) == aantal_musea:
+            break
+
+    if len(geselecteerd) < aantal_musea:
+
+        st.warning(
+            f"Er konden slechts {len(geselecteerd)} musea gevonden worden "
+            f"binnen een totaalbudget van €{max_budget:.2f}."
         )
 
-        totaalprijs = match["Prijs"].sum()
+    else:
+
+        match = pd.DataFrame(geselecteerd)
 
         st.subheader("Jouw match")
 
@@ -146,4 +177,6 @@ if st.button("Maak match"):
             ]
         )
 
-        st.success(f"Totale prijs: €{totaalprijs:.2f}")
+        st.success(
+            f"Totale prijs: €{totaalprijs:.2f} van maximaal €{max_budget:.2f}"
+        )
