@@ -62,8 +62,8 @@ st.markdown(
 
     /* Success melding */
     div[data-testid="stAlert"] {
-        background-color: rgba(237, 44, 108, 0.08);
-        border-left: 6px solid rgb(237, 44, 108);
+        background-color: rgba(0, 143, 211, 0.08);
+        border-left: 6px solid rgb(0, 143, 211);
         border-radius: 10px;
     }
 
@@ -82,7 +82,7 @@ st.markdown(
 st.markdown(
     """
     <div style="
-        background-color: rgb(237, 44, 108);
+        background-color: rgb(0, 143, 211);
         color: white;
         padding: 20px;
         border-radius: 15px;
