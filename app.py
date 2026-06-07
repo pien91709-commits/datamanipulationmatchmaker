@@ -121,8 +121,8 @@ gekozen_provincie = st.selectbox(
 max_budget = st.slider(
     "Wat is je maximale budget (€)?",
     min_value=0,
-    max_value=40,
-    value=40
+    max_value=60,
+    value=60
 )
 
 aantal_musea = st.selectbox(
