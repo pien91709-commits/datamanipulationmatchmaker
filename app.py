@@ -26,7 +26,6 @@ df["WEIGHTED RATING"] = pd.to_numeric(df["WEIGHTED RATING"], errors="coerce")
 nl_kolom = "Musea - Nederlandse benaming (Title)"
 fr_kolom = "Musea - Franse benaming (Alternative Title)"
 
-# Kolommen aanmaken als ze ontbreken
 if nl_kolom not in df.columns:
     df[nl_kolom] = pd.NA
 
