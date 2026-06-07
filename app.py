@@ -127,7 +127,7 @@ max_budget = st.slider(
 
 aantal_musea = st.selectbox(
     "Hoeveel musea wil je combineren?",
-    list(range(1, 16))
+    list(range(1, 11))
 )
 
 themas = [
