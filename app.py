@@ -4,7 +4,6 @@ import pandas as pd
 st.markdown(
     """
     <style>
-
     .stApp {
         background-color: white;
     }
@@ -30,7 +29,6 @@ st.markdown(
         border: 2px solid rgb(11, 194, 157) !important;
         border-radius: 10px !important;
     }
-
     .stButton > button {
         background-color: rgb(11, 194, 157);
         color: white;
@@ -45,20 +43,17 @@ st.markdown(
         background-color: rgb(8, 170, 137);
         color: white;
     }
-
     div[data-testid="stDataFrame"] {
         background-color: white !important;
         border: 2px solid rgb(11, 194, 157);
         border-radius: 12px;
         padding: 10px;
     }
-
     div[data-testid="stAlert"] {
         background-color: rgba(237, 44, 108, 0.08);
         border-left: 6px solid rgb(237, 44, 108);
         border-radius: 10px;
     }
-
     .block-container {
         max-width: 1100px;
         padding-top: 2rem;
@@ -73,8 +68,8 @@ st.markdown(
 st.markdown(
     """
     <div style="
-        background-color: rgba(11, 194, 157, 0.12);
-        color: rgb(11, 194, 157);
+        background-color: rgb(237, 44, 108);
+        color: white;
         padding: 20px;
         border-radius: 15px;
         margin-bottom: 25px;
