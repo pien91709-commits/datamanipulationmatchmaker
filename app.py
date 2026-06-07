@@ -5,7 +5,6 @@ st.markdown(
     """
     <style>
 
-    /* Algemene pagina */
     .stApp {
         background-color: white;
     }
