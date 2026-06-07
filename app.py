@@ -51,7 +51,9 @@ st.markdown(
         background-color: rgb(8, 170, 137);
         color: white;
     }
-
+    div[data-testid="stSlider"] > div {
+        color: rgb(0, 143, 211) !important;
+  }
     /* Tabel */
     div[data-testid="stDataFrame"] {
         background-color: white !important;
@@ -91,7 +93,7 @@ st.markdown(
         font-size: 18px;
         font-weight: 600;
     ">
-        Ontdek musea die passen bij jouw interesses, budget en favoriete thema's.
+        Ontdek musea die passen bij jou.
     </div>
     """,
     unsafe_allow_html=True
