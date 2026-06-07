@@ -52,25 +52,6 @@ st.markdown(
         color: white;
     }
 
-    /* 🎚 Slider kleur → blauw */
-    div[data-testid="stSlider"] > div {
-        color: rgb(0, 143, 211) !important;
-    }
-
-    div[data-testid="stSlider"] input[type="range"] {
-        accent-color: rgb(0, 143, 211);
-    }
-
-    /* ☑ Checkbox kleur → blauw */
-    div[data-testid="stCheckbox"] label span {
-        background-color: rgb(0, 143, 211) !important;
-        border-color: rgb(0, 143, 211) !important;
-    }
-
-    div[data-testid="stCheckbox"] svg {
-        fill: rgb(0, 143, 211) !important;
-    }
-
     /* Tabel */
     div[data-testid="stDataFrame"] {
         background-color: white !important;
@@ -79,7 +60,7 @@ st.markdown(
         padding: 10px;
     }
 
-    /* Success melding (roze blijft behouden) */
+    /* Success melding */
     div[data-testid="stAlert"] {
         background-color: rgba(237, 44, 108, 0.08);
         border-left: 6px solid rgb(237, 44, 108);
@@ -94,6 +75,24 @@ st.markdown(
     }
 
     </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    """
+    <div style="
+        background-color: rgb(237, 44, 108);
+        color: white;
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+    ">
+        Ontdek musea die passen bij jouw interesses, budget en favoriete thema's.
+    </div>
     """,
     unsafe_allow_html=True
 )
