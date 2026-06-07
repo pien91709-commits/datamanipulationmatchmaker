@@ -141,7 +141,6 @@ if st.button("Maak match"):
                     "Naam",
                     "Provincie",
                     "Prijs",
-                    "THEME RATING",
                     "Overeenkomende thema's"
                 ]
             ]
