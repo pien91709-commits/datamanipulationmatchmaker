@@ -215,7 +215,7 @@ if st.button("Maak match"):
 
     for _, museum in kandidaten.iterrows():
 
-        prijs = museum["Prijs"]
+        prijs = museum["Prijs [€]"]
 
         if totaalprijs + prijs <= max_budget:
             geselecteerd.append(museum)
@@ -242,7 +242,7 @@ if st.button("Maak match"):
                 [
                     "Naam",
                     "Provincie",
-                    "Prijs €",
+                    "Prijs [€]",
                     "Overeenkomende thema's"
                 ]
              ],
