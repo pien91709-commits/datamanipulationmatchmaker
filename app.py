@@ -93,7 +93,7 @@ df = pd.concat([df1, df2], ignore_index=True)
 df["THEME RATING"] = pd.to_numeric(df["THEME RATING"], errors="coerce")
 df["FACILITIES RATING"] = pd.to_numeric(df["FACILITIES RATING"], errors="coerce")
 df["WEIGHTED RATING"] = pd.to_numeric(df["WEIGHTED RATING"], errors="coerce")
-df["Prijs [€]"] = pd.to_numeric(df["Prijs [€]"], errors="coerce")
+df["Prijs"] = pd.to_numeric(df["Prijs"], errors="coerce")
 
 nl_kolom = "Musea - Nederlandse benaming (Title)"
 fr_kolom = "Musea - Franse benaming (Alternative Title)"
@@ -215,7 +215,7 @@ if st.button("Maak match"):
 
     for _, museum in kandidaten.iterrows():
 
-        prijs = museum["Prijs [€]"]
+        prijs = museum["Prijs"]
 
         if totaalprijs + prijs <= max_budget:
             geselecteerd.append(museum)
@@ -242,7 +242,7 @@ if st.button("Maak match"):
                 [
                     "Naam",
                     "Provincie",
-                    "Prijs [€]",
+                    "Prijs",
                     "Overeenkomende thema's"
                 ]
            st.rename(columns={"Prijs": "Prijs [€]"}
