@@ -242,7 +242,7 @@ if st.button("Maak match"):
                 [
                     "Naam",
                     "Provincie",
-                    "Prijs",
+                    "Prijs [€]",
                     "Overeenkomende thema's"
                 ]
              ],
