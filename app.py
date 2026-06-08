@@ -93,7 +93,7 @@ df = pd.concat([df1, df2], ignore_index=True)
 df["THEME RATING"] = pd.to_numeric(df["THEME RATING"], errors="coerce")
 df["FACILITIES RATING"] = pd.to_numeric(df["FACILITIES RATING"], errors="coerce")
 df["WEIGHTED RATING"] = pd.to_numeric(df["WEIGHTED RATING"], errors="coerce")
-df["Prijs"] = pd.to_numeric(df["Prijs"], errors="coerce")
+df["Prijs [€]"] = pd.to_numeric(df["Prijs [€]"], errors="coerce")
 
 nl_kolom = "Musea - Nederlandse benaming (Title)"
 fr_kolom = "Musea - Franse benaming (Alternative Title)"
