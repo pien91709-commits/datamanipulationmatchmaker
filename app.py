@@ -245,8 +245,7 @@ if st.button("Maak match"):
                     "Prijs",
                     "Overeenkomende thema's"
                 ]
-        st.rename(columns={"Prijs": "Prijs [€]"})
-             ],
+    ].rename(columns={"Prijs": "Prijs [€]"}),
                     hide_index=True
         )
 
